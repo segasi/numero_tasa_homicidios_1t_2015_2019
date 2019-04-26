@@ -120,3 +120,29 @@ hd_nal %>%
         axis.text.x = element_text(face = "bold", size = 20),
         axis.text.y = element_blank(),
         axis.title.y = element_blank())
+
+
+### Gráfica del cambio interanual del número asoluto de homicidios y la tasa de homicidios por cada 100 mil habitantes, 2015-2019 ----
+
+hd_nal %>% 
+  select(ano, starts_with("cambio")) %>% 
+  gather(key = "variable",
+         value = "valor",
+         -ano) %>% 
+  mutate(variable = case_when(variable == "cambio_porcentual_absoluto" ~ "Número absoluto",
+                              variable == "cambio_porcentual_tasa" ~ "  Tasa"),
+         etiqueta_texto = ifelse(ano == 2019, variable, "")) %>% 
+  ggplot(aes(ano, valor, group = variable, color = variable)) +
+  geom_line(size = 2) +
+  geom_text(aes(label = etiqueta_texto), hjust = -0.1, family = "Didact Gothic Regular", color = "grey35", size = 6) +
+  scale_x_continuous(limits = c(2015.9, 2019.3), labels = c("2015-2016", "2016-2017",
+                                                            "2017-2018", "2018-2019")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 32)) +
+  scale_color_manual(values = c("steelblue", "grey70")) +
+  labs(title = str_wrap(str_to_upper("cambio interanual del número asoluto de homicidios y la tasa de homicidios por cada 100 mil habitantes, 2015-2019"), width = 60),
+       subtitle = "La gráfica muestra el cambio porcentual de ambas variables en el primer trimestre de cada año respecto al año previo",  
+       x = "\n",
+       y = "Cambio %\n",
+       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuentes: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS y proyecciones poblacionales a mitad de año de CONAPO, url: https://bit.ly/2GF9ayo", width = 120)) +
+  tema +
+  theme(legend.position = "none")
