@@ -101,22 +101,22 @@ hd_nal %>%
         axis.title.y = element_blank()) +
   ggsave("03_graficas/numero_homicidios_primer_trimestre_2015_2019.png", width = 15, height = 10, dpi = 200)
 
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> 39e06d0402eeacdf92887a08a3632b3ec915d1e0
+### Gráfica de la tasa trimestral anualizada de homicidios por cada 100 mil habitantes, 2015-2019 ----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+hd_nal %>% 
+  ggplot(aes(x = ano, y = tasa_trimestral_anualizada)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = round(tasa_trimestral_anualizada, 2)), color = "white", 
+            size = 6, vjust = 1.4, fontface = "bold") +
+  labs(title = str_wrap(str_to_upper("tasa trimestral anualizada de homicidios por cada 100 mil habitantes, 2015-2019"), width = 60),
+       subtitle = "Datos correspondientes al primer trimestre de cada año",
+       x = "\n",
+       y = "\n",
+       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuentes: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS y proyecciones poblacionales a mitad de año de CONAPO, url: https://bit.ly/2GF9ayo", width = 120)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  tema +
+  theme(panel.grid.major = element_blank(),
+        axis.text.x = element_text(face = "bold", size = 20),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank())
