@@ -21,3 +21,22 @@ tema <-  theme_minimal() +
         legend.title.align = 0.5,
         axis.title = element_text(size = 18, hjust = 1, face = "bold", margin = margin(0,0,0,0), family = "Didact Gothic Regular"),
         axis.text = element_text(size = 16, face = "bold", family = "Didact Gothic Regular"))
+
+
+### Importar datos ----
+
+# CONAPO - Proyecciones de poblacón 
+
+# Fuente: Población a mitad de año. Para la República Mexicana el periodo es de 1950-2050, para las entidades federativas el periodo es de 1970-2050, CONAPO, url: http://www.conapo.gob.mx/work/models/CONAPO/Datos_Abiertos/Proyecciones2018/pob_mit_proyecciones.csv (consultada el 14 de marzo)
+
+poblacion <- 
+  read_delim("Google/R/10 recursos/datos/conapo/pob_mit_proyecciones.csv", "," , locale = locale(encoding = "latin1")) %>% 
+  clean_names()
+
+# SNSP - Incidencia delictiva 
+
+# Fuente: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS
+
+incidencia <- 
+  read_excel("Google/R/10 recursos/datos/snsp/Estatal Delitos - marzo 2019.xlsx") %>% 
+  clean_names()
