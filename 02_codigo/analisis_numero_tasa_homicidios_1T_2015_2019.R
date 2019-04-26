@@ -40,3 +40,30 @@ poblacion <-
 incidencia <- 
   read_excel("Google/R/10 recursos/datos/snsp/Estatal Delitos - marzo 2019.xlsx") %>% 
   clean_names()
+
+
+### Preparar datos para análisis ----
+
+# Calcular proyecciones de población nacional para los años 2015, 2016, 2017, 2018 y 2019 ----
+
+pob_nal <- # Creo *pob_nal* para guardar el resultado
+  poblacion %>% 
+  filter(ano > 2014 & ano < 2020, 
+         entidad == "República Mexicana") %>% 
+  group_by(ano) %>% 
+  summarise(pob_tot = sum(poblacion)) %>% 
+  ungroup()
+
+# Calcular el número acumulado de homicidios dolosos en el primer trimestre de los años 2015, 2016, 2017, 2018 y 2019
+
+hd_nal <- # Creo *hd_nal* para guardar el resultado
+  incidencia %>% 
+  filter(subtipo_de_delito == "Homicidio doloso") %>% 
+  select(ano, enero:diciembre) %>% 
+  gather(key = "mes",
+         value = "numero",
+         -ano) %>% 
+  filter(mes %in% c("enero", "febrero", "marzo")) %>% 
+  group_by(ano) %>% 
+  summarise(num_acumulado = sum(numero)) %>% 
+  ungroup()
