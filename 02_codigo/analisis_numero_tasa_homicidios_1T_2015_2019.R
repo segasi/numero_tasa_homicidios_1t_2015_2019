@@ -67,3 +67,9 @@ hd_nal <- # Creo *hd_nal* para guardar el resultado
   group_by(ano) %>% 
   summarise(num_acumulado = sum(numero)) %>% 
   ungroup()
+
+### Unir datos de homicidios y población ----
+hd_nal <- 
+  hd_nal %>% 
+  left_join(pob_nal, by = "ano")
+
