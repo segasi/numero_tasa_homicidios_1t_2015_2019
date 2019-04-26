@@ -30,7 +30,7 @@ tema <-  theme_minimal() +
 # Fuente: Población a mitad de año. Para la República Mexicana el periodo es de 1950-2050, para las entidades federativas el periodo es de 1970-2050, CONAPO, url: http://www.conapo.gob.mx/work/models/CONAPO/Datos_Abiertos/Proyecciones2018/pob_mit_proyecciones.csv (consultada el 14 de marzo)
 
 poblacion <- 
-  read_delim("Google/R/10 recursos/datos/conapo/pob_mit_proyecciones.csv", "," , locale = locale(encoding = "latin1")) %>% 
+  read_delim("01_datos/pob_mit_proyecciones.csv", "," , locale = locale(encoding = "latin1")) %>% 
   clean_names()
 
 # SNSP - Incidencia delictiva 
@@ -38,7 +38,7 @@ poblacion <-
 # Fuente: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS
 
 incidencia <- 
-  read_excel("Google/R/10 recursos/datos/snsp/Estatal Delitos - marzo 2019.xlsx") %>% 
+  read_excel("01_datos/Estatal Delitos - marzo 2019.xlsx") %>% 
   clean_names()
 
 
@@ -80,3 +80,39 @@ hd_nal <-
          tasa_trimestral_anualizada = (num_acumulado/pob_tot)*1e5*4, 
          cambio_porcentual_absoluto = ((num_acumulado - lag(num_acumulado))/lag(num_acumulado))*100,
          cambio_porcentual_tasa = ((tasa_trimestral - lag(tasa_trimestral))/lag(tasa_trimestral))*100)
+
+
+### Gráfica del número absoluto de homicidios en el primer trimestre de cada año, 2015-2019 ----
+
+hd_nal %>% 
+  ggplot(aes(x = ano, y = num_acumulado)) +
+  geom_col(fill = "grey70") +
+  geom_text(aes(label = comma(num_acumulado)), color = "white", 
+            size = 6, vjust = 1.4, fontface = "bold") +
+  labs(title = str_wrap(str_to_upper("número absoluto de homicidios en el primer trimestre de cada año, 2015-2019"), width = 60),
+       x = "\n",
+       y = "\n",
+       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuente: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS", width = 120)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  tema +
+  theme(panel.grid.major = element_blank(),
+        axis.text.x = element_text(face = "bold", size = 20),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank()) +
+  ggsave("03_graficas/numero_homicidios_primer_trimestre_2015_2019.png", width = 15, height = 10, dpi = 200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
