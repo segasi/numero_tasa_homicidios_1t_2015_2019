@@ -73,3 +73,10 @@ hd_nal <-
   hd_nal %>% 
   left_join(pob_nal, by = "ano")
 
+### Calcular tasas y cambios porcentuales ----
+hd_nal <- 
+  hd_nal %>% 
+  mutate(tasa_trimestral = (num_acumulado/pob_tot)*1e5,
+         tasa_trimestral_anualizada = (num_acumulado/pob_tot)*1e5*4, 
+         cambio_porcentual_absoluto = ((num_acumulado - lag(num_acumulado))/lag(num_acumulado))*100,
+         cambio_porcentual_tasa = ((tasa_trimestral - lag(tasa_trimestral))/lag(tasa_trimestral))*100)
