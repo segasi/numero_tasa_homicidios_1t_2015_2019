@@ -101,7 +101,11 @@ hd_nal %>%
         axis.title.y = element_blank()) +
   ggsave("03_graficas/numero_homicidios_primer_trimestre_2015_2019.png", width = 15, height = 10, dpi = 200)
 
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 39e06d0402eeacdf92887a08a3632b3ec915d1e0
 
 
 
