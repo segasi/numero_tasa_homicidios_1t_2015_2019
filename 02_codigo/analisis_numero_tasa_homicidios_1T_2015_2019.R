@@ -92,14 +92,14 @@ hd_nal %>%
   labs(title = str_wrap(str_to_upper("número absoluto de homicidios en el primer trimestre de cada año, 2015-2019"), width = 60),
        x = "\n",
        y = "\n",
-       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuente: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS", width = 120)) +
+       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuente: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS", width = 150)) +
   scale_y_continuous(expand = c(0, 0)) +
   tema +
   theme(panel.grid.major = element_blank(),
         axis.text.x = element_text(face = "bold", size = 20),
         axis.text.y = element_blank(),
         axis.title.y = element_blank()) +
-  ggsave("03_graficas/numero_homicidios_primer_trimestre_2015_2019.png", width = 15, height = 10, dpi = 200)
+  ggsave("03_graficas/numero_homicidios_primer_trimestre_2015_2019.png", width = 13, height = 10, dpi = 200)
 
 
 ### Gráfica de la tasa trimestral anualizada de homicidios por cada 100 mil habitantes, 2015-2019 ----
@@ -113,13 +113,14 @@ hd_nal %>%
        subtitle = "Datos correspondientes al primer trimestre de cada año",
        x = "\n",
        y = "\n",
-       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuentes: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS y proyecciones poblacionales a mitad de año de CONAPO, url: https://bit.ly/2GF9ayo", width = 120)) +
+       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuentes: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS y proyecciones poblacionales a mitad de año de CONAPO, url: https://bit.ly/2GF9ayo", width = 150)) +
   scale_y_continuous(expand = c(0, 0)) +
   tema +
   theme(panel.grid.major = element_blank(),
         axis.text.x = element_text(face = "bold", size = 20),
         axis.text.y = element_blank(),
-        axis.title.y = element_blank())
+        axis.title.y = element_blank()) +
+  ggsave("03_graficas/tasa_homicidios_primer_trimestre_2015_2019.png", width = 13, height = 10, dpi = 200)
 
 
 ### Gráfica del cambio interanual del número asoluto de homicidios y la tasa de homicidios por cada 100 mil habitantes, 2015-2019 ----
@@ -135,14 +136,17 @@ hd_nal %>%
   ggplot(aes(ano, valor, group = variable, color = variable)) +
   geom_line(size = 2) +
   geom_text(aes(label = etiqueta_texto), hjust = -0.1, family = "Didact Gothic Regular", color = "grey35", size = 6) +
-  scale_x_continuous(limits = c(2015.9, 2019.3), labels = c("2015-2016", "2016-2017",
-                                                            "2017-2018", "2018-2019")) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 32)) +
+  scale_x_continuous(limits = c(2015.9, 2019.3), 
+                     labels = c("2015-2016", "2016-2017",
+                                "2017-2018", "2018-2019")) +
+  scale_y_continuous(expand = c(0, 0), breaks = seq(0, 30, 5), limits = c(0, 32)) +
   scale_color_manual(values = c("steelblue", "grey70")) +
-  labs(title = str_wrap(str_to_upper("cambio interanual del número asoluto de homicidios y la tasa de homicidios por cada 100 mil habitantes, 2015-2019"), width = 60),
+  labs(title = str_wrap(str_to_upper("cambio porcentual interanual del número asoluto de homicidios y la tasa trimestral de homicidios por cada 100 mil habitantes, 2015-2019"), width = 70),
        subtitle = "La gráfica muestra el cambio porcentual de ambas variables en el primer trimestre de cada año respecto al año previo",  
        x = "\n",
        y = "Cambio %\n",
-       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuentes: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS y proyecciones poblacionales a mitad de año de CONAPO, url: https://bit.ly/2GF9ayo", width = 120)) +
+       caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuentes: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS y proyecciones poblacionales a mitad de año de CONAPO, url: https://bit.ly/2GF9ayo", width = 170)) +
   tema +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  ggsave("03_graficas/cambios_porcentuales_numero_y_tasa_homicidios_primer_trimestre_2015_2019.png", width = 16, height = 10, dpi = 200)
+  
