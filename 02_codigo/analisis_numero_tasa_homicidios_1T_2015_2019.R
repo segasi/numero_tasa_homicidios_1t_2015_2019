@@ -89,7 +89,7 @@ hd_nal %>%
   geom_col(fill = "grey70") +
   geom_text(aes(label = comma(num_acumulado)), color = "white", 
             size = 6, vjust = 1.4, fontface = "bold") +
-  labs(title = str_wrap(str_to_upper("número absoluto de homicidios en el primer trimestre de cada año, 2015-2019"), width = 60),
+  labs(title = str_wrap(str_to_upper("número acumulado de carpetas de investigación por homicidios doloso en el primer trimestre de cada año, 2015-2019"), width = 60),
        x = "\n",
        y = "\n",
        caption = str_wrap("\nSebastián Garrido de Sierra / @segasi / Fuente: Base de datos de incidencia delictiva del fuero común, SNSP, url: https://bit.ly/2viCyUS", width = 150)) +
@@ -141,7 +141,7 @@ hd_nal %>%
                                 "1T \'18 vs. 1T \'17", "1T \'19 vs. 1T \'18")) +
   scale_y_continuous(expand = c(0, 0), breaks = seq(0, 30, 5), limits = c(0, 32)) +
   scale_color_manual(values = c("steelblue", "grey70")) +
-  labs(title = str_wrap(str_to_upper("cambio porcentual interanual del número asoluto de homicidios y la tasa de homicidios por cada 100 mil habitantes, 2015-2019"), width = 70),
+  labs(title = str_wrap(str_to_upper("cambio porcentual interanual del número absoluto de homicidios y la tasa de homicidios por cada 100 mil habitantes, 2015-2019"), width = 70),
        subtitle = "La gráfica muestra el cambio porcentual de ambas variables en el primer trimestre de cada año respecto al primer trimestre del año previo",  
        x = "\n",
        y = "Cambio %\n",
