@@ -175,3 +175,13 @@ poblacion %>%
   ungroup() %>% 
   mutate(ci_homicdios = c(82, 100),
          tasa = (ci_homicdios/pob_tot)*1e5)
+
+
+### Cambio porcentual de la población nacional entre 2018 y 2019 ----    
+poblacion %>% 
+  filter(ano > 2017 & ano < 2020,
+         entidad == "República Mexicana") %>% 
+  group_by(ano) %>% 
+  summarise(pob_tot = sum(poblacion)) %>% 
+  ungroup() %>% 
+  mutate(cambio_por = ((pob_tot - lag(pob_tot))/lag(pob_tot))*100)
