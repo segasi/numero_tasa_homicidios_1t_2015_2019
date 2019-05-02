@@ -164,3 +164,14 @@ incidencia %>%
   ungroup() %>% 
   arrange(-num_acumulado) %>% 
   print(n = Inf)
+
+
+### Cálculo de la tasa de carpetas de investigación por homicidio doloso por cada 100k habitantes en Puebla y Morelos, en marzo de 2019 ----  
+poblacion %>% 
+  filter(ano > 2018 & ano < 2020, 
+         entidad %in% c("Puebla", "Morelos")) %>% 
+  group_by(entidad) %>%  
+  summarise(pob_tot = sum(poblacion)) %>% 
+  ungroup() %>% 
+  mutate(ci_homicdios = c(82, 100),
+         tasa = (ci_homicdios/pob_tot)*1e5)
