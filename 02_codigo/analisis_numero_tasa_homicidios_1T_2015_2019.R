@@ -150,3 +150,17 @@ hd_nal %>%
   theme(legend.position = "none") +
   ggsave("03_graficas/cambios_porcentuales_numero_y_tasa_homicidios_primer_trimestre_2015_2019.png", width = 16, height = 10, dpi = 200)
   
+
+### Número de carpetas de investigación por homicidio doloso en cada estado en marzo de 2019 ----
+incidencia %>% 
+  filter(subtipo_de_delito == "Homicidio doloso") %>% 
+  select(ano, entidad, enero:diciembre) %>% 
+  gather(key = "mes",
+         value = "numero",
+         -c(ano, entidad)) %>%
+  filter(ano == 2019, mes == "marzo") %>%
+  group_by(ano, mes, entidad) %>% 
+  summarise(num_acumulado = sum(numero)) %>% 
+  ungroup() %>% 
+  arrange(-num_acumulado) %>% 
+  print(n = Inf)
